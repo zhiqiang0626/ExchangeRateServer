@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="exchangeRate" namespace="/exchangeRate" extends="json-default">
+		<action name="welcome">
+			<result>/index.html</result>
+		</action>
+		<!--取到一条最新的汇率信息  -->
+		<action name="HourNewestRecord"
+			class="com.fx.exchange.wuxi.api.controller.UsdHourNewestRecord">
+			<result type="json">
+				<param name="contentType">text/html</param>
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		<!--注册用户的信息到服务器上。  -->
+		<action name="Register"
+			class="com.fx.exchange.wuxi.api.controller.RegisterUser">
+			<result type="json">
+				<param name="contentType">text/html</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">
+				registrationID,push_flag,push_device_type,exchange_type,exchange_from_currency,exchange_to_currency,
+				currency_base_value,currency_target_value
+				</param>
+			</result>
+		</action>
+
+		<!--取到24小时条最新的汇率信息  -->
+		<action name="Hour24RecordList"
+			class="com.fx.exchange.wuxi.api.controller.UsdHourNewestList">
+			<result type="json">
+				<param name="contentType">text/html</param>
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		<!--取到24小时条最新的汇率信息  -->
+		<action name="Day90RecordList"
+			class="com.fx.exchange.wuxi.api.controller.UsdDayNewestList">
+			<result type="json">
+				<param name="contentType">text/html</param>
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		<!--注册用户的信息更新到服务器上。  -->
+		<action name="UpdateUser"
+			class="com.fx.exchange.wuxi.api.controller.UpdateUser">
+			<result type="json">
+				<param name="contentType">text/html</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">
+				registrationID,push_status,push_flag,exchange_type,exchange_from_currency,exchange_to_currency,
+				currency_base_value,currency_target_value
+				</param>
+			</result>
+		</action>
+		
+			<!--注册用户的信息更新到服务器上。  -->
+		<action name="UpdateUserForPush"
+			class="com.fx.exchange.wuxi.api.controller.UpdateUserForPush">
+			<result type="json">
+				<param name="contentType">text/html</param>
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">
+				registrationID,push_status
+				</param>
+			</result>
+		</action>
+
+	</package>
+
+</struts>

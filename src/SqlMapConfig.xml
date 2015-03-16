@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <properties resource="SqlMapConfig.properties" />
+    <settings
+        cacheModelsEnabled="true"
+        enhancementEnabled="true"
+        lazyLoadingEnabled="true"
+        maxRequests="400"
+        maxSessions="350"
+        maxTransactions="5"
+        useStatementNamespaces="false"
+    />
+    <transactionManager type="JDBC" >
+        <dataSource type="DBCP">
+            <property name="JDBC.Driver" value="${driver}"/>
+            <property name="JDBC.ConnectionURL" value="${url}"/>
+            <property name="JDBC.Username" value="${username}"/>
+            <property name="JDBC.Password" value="${password}"/>
+            <property name="JDBC.DefaultAutoCommit" value="true" />
+            <property name="Pool.MaximumActiveConnections" value="400"/>
+            <property name="Pool.MaximumIdleConnections" value="200"/>
+            <property name="Pool.MaximumCheckoutTime" value="120000"/>
+            <property name="Pool.TimeToWait" value="5000"/>
+            <property name="Pool.PingQuery" value="select 1 from ACCOUNT"/>
+            <property name="Pool.PingEnabled" value="false"/>
+            <property name="Pool.PingConnectionsOlderThan" value="1"/>
+            <property name="Pool.PingConnectionsNotUsedFor" value="1"/>      
+        </dataSource>
+        
+    </transactionManager>
+    <sqlMap resource="SqlMap.xml" />
+   	
+    <!-- <sqlMap resource="fdeviceMap.xml" /> -->
+</sqlMapConfig>

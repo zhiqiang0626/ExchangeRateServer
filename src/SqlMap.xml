@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="ExchangeRateServer">    
+   <!-- 一条最新汇率数据的取得start -->
+    <select id="GetUsdHourObject"  resultClass="com.fx.exchange.wuxi.api.model.UsdHourInfo">   
+         <![CDATA[ 
+           SELECT
+			    T1.JPY AS JPY,
+			    T1.USD AS USD,
+			    T1.EUR AS EUR,
+			    T1.BRL AS BRL,
+			    T1.AUD AS AUD,
+			    T1.CNY AS CNY,
+			    T1.GBP AS GBP,
+			    T1.KRW AS KRW,
+			    T1.NZD AS NZD,
+			    T1.SGD AS SGD,
+			    T1.THB AS THB,
+			    T1.TWD AS TWD,
+			    T1.ZAR AS ZAR,
+			    T1.CAD AS CAD,
+			    T1.TRY AS TRY,
+			    T1.HKD AS HKD,
+			    T1.CHF AS CHF,
+			    T1.MYR AS MYR,
+			    T1.MXN AS MXN,
+			    T1.PHP AS PHP,
+			    T1.INR AS INR,
+			    T1.IDR AS IDR,
+			    T1.RUB AS RUB,
+			    T1.SEK AS SEK,
+			    T1.NOK AS NOK,
+			    T1.DKK AS DKK,
+			    T1.AED AS AED,
+			    T1.CLP AS CLP,
+			    T1.VEF AS VEF,
+			    T1.KWD AS KWD,
+			    T1.SAR AS SAR,
+			    T1.RON AS RON,
+			    T1.PYG AS PYG,
+			    T1.EGP AS EGP,
+			    T1.JOD AS JOD,
+			    T1.ECS AS ECS,
+			    T1.PEN AS PEN,
+			    T1.LBP AS LBP
+			FROM USD_HOUR T1 
+			ORDER BY
+			     T1.update_time DESC
+			LIMIT 1
+        ]]> 
+    </select> 
+    <!-- 一条最新汇率数据的取得end -->
+    
+     <!-- 活动情报登陆start -->
+    <update id="PushUserInsert"  parameterClass="com.fx.exchange.wuxi.api.model.PushUserInfo">  
+         <![CDATA[ 
+        INSERT INTO PUSH_USERS (
+			registration_ID,
+		 	push_flag,
+		 	push_device_type,
+		 	exchange_type,
+		 	exchange_from_currency,
+		 	exchange_to_currency,
+		 	currency_base_value,
+		 	currency_target_value,
+		 	update_time)
+		 VALUES(
+		 	#registration_ID#,
+		 	#push_flag#,
+		 	#push_device_type#,
+		 	#exchange_type#,
+		 	#exchange_from_currency#,
+		 	#exchange_to_currency#,
+		 	#currency_base_value#,
+		 	#currency_target_value#,
+		 	now())
+        ]]> 
+    </update>
+    <!-- 活动情报登陆end-->
+    
+     <!-- 一条最新汇率数据的取得start -->
+    <select id="GetUsdHour24List"  resultClass="com.fx.exchange.wuxi.api.model.UsdHourInfo">   
+         <![CDATA[ 
+           SELECT
+			    T1.JPY AS JPY,
+			    T1.USD AS USD,
+			    T1.EUR AS EUR,
+			    T1.BRL AS BRL,
+			    T1.AUD AS AUD,
+			    T1.CNY AS CNY,
+			    T1.GBP AS GBP,
+			    T1.KRW AS KRW,
+			    T1.NZD AS NZD,
+			    T1.SGD AS SGD,
+			    T1.THB AS THB,
+			    T1.TWD AS TWD,
+			    T1.ZAR AS ZAR,
+			    T1.CAD AS CAD,
+			    T1.TRY AS TRY,
+			    T1.HKD AS HKD,
+			    T1.CHF AS CHF,
+			    T1.MYR AS MYR,
+			    T1.MXN AS MXN,
+			    T1.PHP AS PHP,
+			    T1.INR AS INR,
+			    T1.IDR AS IDR,
+			    T1.RUB AS RUB,
+			    T1.SEK AS SEK,
+			    T1.NOK AS NOK,
+			    T1.DKK AS DKK,
+			    T1.AED AS AED,
+			    T1.CLP AS CLP,
+			    T1.VEF AS VEF,
+			    T1.KWD AS KWD,
+			    T1.SAR AS SAR,
+			    T1.RON AS RON,
+			    T1.PYG AS PYG,
+			    T1.EGP AS EGP,
+			    T1.JOD AS JOD,
+			    T1.ECS AS ECS,
+			    T1.PEN AS PEN,
+			    T1.LBP AS LBP,
+			    T1. update_time As updateTime
+			FROM USD_HOUR T1 
+			ORDER BY
+			     T1.update_time DESC
+			LIMIT 24
+        ]]> 
+    </select> 
+    <!-- 一条最新汇率数据的取得end -->
+    
+         <!-- 一条最新汇率数据的取得start -->
+    <select id="GetUsdDay90List"  resultClass="com.fx.exchange.wuxi.api.model.UsdHourInfo">   
+         <![CDATA[ 
+           SELECT
+			    T1.JPY AS JPY,
+			    T1.USD AS USD,
+			    T1.EUR AS EUR,
+			    T1.BRL AS BRL,
+			    T1.AUD AS AUD,
+			    T1.CNY AS CNY,
+			    T1.GBP AS GBP,
+			    T1.KRW AS KRW,
+			    T1.NZD AS NZD,
+			    T1.SGD AS SGD,
+			    T1.THB AS THB,
+			    T1.TWD AS TWD,
+			    T1.ZAR AS ZAR,
+			    T1.CAD AS CAD,
+			    T1.TRY AS TRY,
+			    T1.HKD AS HKD,
+			    T1.CHF AS CHF,
+			    T1.MYR AS MYR,
+			    T1.MXN AS MXN,
+			    T1.PHP AS PHP,
+			    T1.INR AS INR,
+			    T1.IDR AS IDR,
+			    T1.RUB AS RUB,
+			    T1.SEK AS SEK,
+			    T1.NOK AS NOK,
+			    T1.DKK AS DKK,
+			    T1.AED AS AED,
+			    T1.CLP AS CLP,
+			    T1.VEF AS VEF,
+			    T1.KWD AS KWD,
+			    T1.SAR AS SAR,
+			    T1.RON AS RON,
+			    T1.PYG AS PYG,
+			    T1.EGP AS EGP,
+			    T1.JOD AS JOD,
+			    T1.ECS AS ECS,
+			    T1.PEN AS PEN,
+			    T1.LBP AS LBP,
+			    T1. update_time As updateTime
+			FROM USD_DAY T1 
+			ORDER BY
+			     T1.update_time DESC
+			LIMIT 90
+        ]]> 
+    </select> 
+    <!-- 一条最新汇率数据的取得end -->
+    
+       <!-- 活动情报更新start -->
+    <update id="PushUserUpdate"  parameterClass="com.fx.exchange.wuxi.api.model.PushUserInfo">  
+         <![CDATA[ 
+		    UPDATE
+			     push_users
+			SET
+			    push_status = #push_status#,
+			    push_flag = #push_flag#,
+			    exchange_type = #exchange_type#,
+			    exchange_from_currency = #exchange_from_currency#,
+			    exchange_to_currency = #exchange_to_currency#,
+			    currency_base_value = #currency_base_value#,
+			    currency_target_value = #currency_target_value#,
+			    update_time = now()
+			WHERE
+			    registration_ID = #registration_ID#
+        ]]> 
+    </update>
+    <update id="PushUserUpdateForPush"  parameterClass="com.fx.exchange.wuxi.api.model.PushUserInfo">  
+         <![CDATA[ 
+		    UPDATE
+			     push_users
+			SET
+			    push_status = #push_status#,
+			    update_time = now()
+			WHERE
+			    registration_ID = #registration_ID#
+        ]]> 
+    </update>
+    <!-- 活动情报更新end-->
+    
+     <!-- 一条最新汇率数据的取得start -->
+    <select id="GetUsdHour24Record"  resultClass="com.fx.exchange.wuxi.api.model.UsdHourInfo" 
+    parameterClass="java.util.Map" remapResults="true">   
+         <![CDATA[ 
+           SELECT
+			   $column$
+		   FROM 
+		       USD_HOUR 
+		   ORDER BY
+		       update_time DESC
+		   LIMIT 24
+        ]]> 
+    </select> 
+    
+    <!-- 一条最新汇率数据的取得end|| ',' || exchange_to_currency  -->
+    <!-- 一条最新汇率数据的取得end -->
+    <select id="GetPushUserRecord" resultClass="java.lang.String" parameterClass="java.lang.String">
+        <![CDATA[ 
+	        SELECT 
+	           CONCAT( exchange_from_currency,',',exchange_to_currency)
+	        FROM
+	            push_users
+	        WHERE
+	            registration_ID = #registrationID#
+        ]]> 
+	</select>
+    
+</sqlMap>
