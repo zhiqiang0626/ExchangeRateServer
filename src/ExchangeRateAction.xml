@@ -12,19 +12,21 @@
 		<action name="HourNewestRecord"
 			class="com.fx.exchange.wuxi.api.controller.UsdHourNewestRecord">
 			<result type="json">
-				<param name="contentType">text/html</param>
 				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">
+				messages
+				</param>
 			</result>
 		</action>
 		<!--注册用户的信息到服务器上。  -->
 		<action name="Register"
 			class="com.fx.exchange.wuxi.api.controller.RegisterUser">
 			<result type="json">
-				<param name="contentType">text/html</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">
-				registrationID,push_flag,push_device_type,exchange_type,exchange_from_currency,exchange_to_currency,
-				currency_base_value,currency_target_value
+				registrationID,push_flag,push_device_type,exchange_from_currency,exchange_to_currency,
+				currency_base_value,currency_target_value,currency_target2_value,currency_target3_value,
+				currency_target4_value,messages
 				</param>
 			</result>
 		</action>
@@ -33,8 +35,10 @@
 		<action name="Hour24RecordList"
 			class="com.fx.exchange.wuxi.api.controller.UsdHourNewestList">
 			<result type="json">
-				<param name="contentType">text/html</param>
 				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">
+				messages,exchange_from_currency,exchange_to_currency
+				</param>
 			</result>
 		</action>
 		
@@ -42,8 +46,10 @@
 		<action name="Day90RecordList"
 			class="com.fx.exchange.wuxi.api.controller.UsdDayNewestList">
 			<result type="json">
-				<param name="contentType">text/html</param>
 				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">
+				messages,exchange_from_currency,exchange_to_currency
+				</param>
 			</result>
 		</action>
 		
@@ -51,20 +57,20 @@
 		<action name="UpdateUser"
 			class="com.fx.exchange.wuxi.api.controller.UpdateUser">
 			<result type="json">
-				<param name="contentType">text/html</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">
 				registrationID,push_status,push_flag,exchange_type,exchange_from_currency,exchange_to_currency,
-				currency_base_value,currency_target_value
+				currency_base_value,currency_target_value,currency_target2_value,currency_target3_value,
+				currency_target4_value,messages
 				</param>
 			</result>
 		</action>
 		
-			<!--注册用户的信息更新到服务器上。  -->
+		<!--注册用户的信息更新到服务器上。  -->
+		
 		<action name="UpdateUserForPush"
 			class="com.fx.exchange.wuxi.api.controller.UpdateUserForPush">
 			<result type="json">
-				<param name="contentType">text/html</param>
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">
 				registrationID,push_status

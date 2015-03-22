@@ -1,6 +1,7 @@
 package com.fx.exchange.wuxi.api.controller;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -21,6 +22,10 @@ public class UsdDayNewestList extends ActionSupport {
 		private int code = 0;
 		//返回的message
 		private String messages;
+		//货币转换先
+		private String exchange_from_currency;
+		//货币转换元
+		private String exchange_to_currency;
 		//最新一条汇率的信息
 		private List<UsdHourInfo> usdDayInfoList;
 		
@@ -32,22 +37,27 @@ public class UsdDayNewestList extends ActionSupport {
 			//数据库的初期化
 			SqlMapClient sqlMap = DBOperation.getSqlMapInstance();
 			try {
+				//用户货币的选择名称
+				String currencyName = exchange_from_currency + "," + exchange_to_currency;
+				logger.info("currencyName:"+currencyName);
+				HashMap<String, String> input = new HashMap<String, String>();
+				input.put("column", currencyName);
 				//对象的取得
-				usdDayInfoList =sqlMap.queryForList("GetUsdDay90List",null);
+				usdDayInfoList =sqlMap.queryForList("GetUsdDay90List",input);
+				
 				if(usdDayInfoList == null || usdDayInfoList.size()==0 ){
-	     			code = 1;
+	     			code = -1;
 	        		messages = "没有找到对应的数据。";
-	     		}else{
-	     			code = 0;
-	            	messages = "数据查询处理完了。";
 	     		}
 	        		
-			}  catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				code = -1;
-				messages = "SQL取得异常。";
-				logger.info(e.toString() );
+			} catch (SQLException e) {
+				code = -2;
+				messages = "数据库查询异常！";
+				logger.info(e.toString());
+			}catch (Exception e) {
+				//异常的处理
+				code = -3;
+				logger.info(e.toString());
 			}
 			
 			logger.debug("UsdHourNewestList END: " );
@@ -78,7 +88,20 @@ public class UsdDayNewestList extends ActionSupport {
 			this.usdDayInfoList = usdDayInfoList;
 		}
 
-	
-		
+		public String getExchange_from_currency() {
+			return exchange_from_currency;
+		}
+
+		public void setExchange_from_currency(String exchange_from_currency) {
+			this.exchange_from_currency = exchange_from_currency;
+		}
+
+		public String getExchange_to_currency() {
+			return exchange_to_currency;
+		}
+
+		public void setExchange_to_currency(String exchange_to_currency) {
+			this.exchange_to_currency = exchange_to_currency;
+		}
 		
 }

@@ -36,6 +36,12 @@ public class RegisterUser extends ActionSupport {
 		private String currency_base_value;
 		//目标货币值，一旦达到，将进行推送消息
 		private String currency_target_value;
+		//目标货币值2
+		private String currency_target2_value;
+		//目标货币值3
+		private String currency_target3_value;
+		//目标货币值4
+		private String currency_target4_value;
 		@Override
 		public String execute() throws Exception {
 			// TODO Auto-generated method stub
@@ -49,24 +55,27 @@ public class RegisterUser extends ActionSupport {
 				userInfo.setRegistration_ID(registrationID);
 				userInfo.setPush_flag(push_flag);
 				userInfo.setPush_device_type(push_device_type);
-				userInfo.setExchange_type(exchange_type);
 				userInfo.setExchange_from_currency(exchange_from_currency);
 				userInfo.setExchange_to_currency(exchange_to_currency);
 				userInfo.setCurrency_base_value(currency_base_value);
 				userInfo.setCurrency_target_value(currency_target_value);
+				userInfo.setCurrency_target2_value(currency_target2_value);
+				userInfo.setCurrency_target3_value(currency_target3_value);
+				userInfo.setCurrency_target4_value(currency_target4_value);
 				//数据的插入处理
 				sqlMap.insert("PushUserInsert", userInfo);
 				messages = "插入数据成功！";
+				logger.info(messages);
 				
 			}  catch (SQLException e) {
 				e.printStackTrace();
 				code = -1;
-				messages = "db服务器异常";
+				messages = "插入数据库异常。";
 				logger.info(e.toString() );
 			} catch (Exception e) {
 				e.printStackTrace();
-				code = -1;
-				messages = "服务器异常";
+				code = -2;
+				messages = "系统异常。";
 				logger.info(e.toString() );
 			}
 			
@@ -132,6 +141,24 @@ public class RegisterUser extends ActionSupport {
 		}
 		public void setPush_device_type(String push_device_type) {
 			this.push_device_type = push_device_type;
+		}
+		public String getCurrency_target2_value() {
+			return currency_target2_value;
+		}
+		public void setCurrency_target2_value(String currency_target2_value) {
+			this.currency_target2_value = currency_target2_value;
+		}
+		public String getCurrency_target3_value() {
+			return currency_target3_value;
+		}
+		public void setCurrency_target3_value(String currency_target3_value) {
+			this.currency_target3_value = currency_target3_value;
+		}
+		public String getCurrency_target4_value() {
+			return currency_target4_value;
+		}
+		public void setCurrency_target4_value(String currency_target4_value) {
+			this.currency_target4_value = currency_target4_value;
 		}
 		
 }

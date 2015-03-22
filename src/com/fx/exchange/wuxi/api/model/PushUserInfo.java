@@ -9,11 +9,13 @@ public class PushUserInfo {
 	private Date push_time;
 	private String push_device_type;
 	private String user_time_type;
-	private String exchange_type;
 	private String exchange_from_currency;
 	private String exchange_to_currency;
 	private String currency_base_value;
 	private String currency_target_value;
+	private String currency_target2_value;
+	private String currency_target3_value;
+	private String currency_target4_value;
 	private String del_flag;
 	public String getRegistration_ID() {
 		return registration_ID;
@@ -45,12 +47,7 @@ public class PushUserInfo {
 	public void setUser_time_type(String user_time_type) {
 		this.user_time_type = user_time_type;
 	}
-	public String getExchange_type() {
-		return exchange_type;
-	}
-	public void setExchange_type(String exchange_type) {
-		this.exchange_type = exchange_type;
-	}
+
 	public String getExchange_from_currency() {
 		return exchange_from_currency;
 	}
@@ -87,6 +84,24 @@ public class PushUserInfo {
 	}
 	public void setPush_device_type(String push_device_type) {
 		this.push_device_type = push_device_type;
+	}
+	public String getCurrency_target2_value() {
+		return currency_target2_value;
+	}
+	public void setCurrency_target2_value(String currency_target2_value) {
+		this.currency_target2_value = currency_target2_value;
+	}
+	public String getCurrency_target3_value() {
+		return currency_target3_value;
+	}
+	public void setCurrency_target3_value(String currency_target3_value) {
+		this.currency_target3_value = currency_target3_value;
+	}
+	public String getCurrency_target4_value() {
+		return currency_target4_value;
+	}
+	public void setCurrency_target4_value(String currency_target4_value) {
+		this.currency_target4_value = currency_target4_value;
 	}
 	
 	

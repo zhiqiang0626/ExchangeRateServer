@@ -1,6 +1,9 @@
 package com.fx.exchange.wuxi.api.controller;
 
+import java.sql.SQLException;
+
 import org.apache.log4j.Logger;
+
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.UsdHourInfo;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -32,16 +35,18 @@ public class UsdHourNewestRecord extends ActionSupport {
 			usdHourInfo = (UsdHourInfo)sqlMap.queryForObject("GetUsdHourObject");
 			if (usdHourInfo == null) {
 				code = -1;
-				messages = "数据取得异常";
-			}else{
-				code = 0;
+				messages = "数据未取到！";
+				logger.info(messages);
 			}
 			
-		} catch (Exception e) {
+		}catch (SQLException e) {
+			code = -2;
+			messages = "数据库查询异常！";
+			logger.info(e.toString());
+		}catch (Exception e) {
 			//异常的处理
-			code = -1;
-			messages = "数据取得异常";
-			logger.info(e.toString() );
+			code = -3;
+			logger.info(e.toString());
 		}
 		
 		logger.debug("UsdHourNewestRecord END: " );
