@@ -50,6 +50,21 @@ public class RegisterUser extends ActionSupport {
 			SqlMapClient sqlMap = DBOperation.getSqlMapInstance();
 
 			try {
+				if (registrationID == null || registrationID == ""
+					|| push_flag == null || push_flag == "" 
+					|| push_device_type == null || push_device_type == ""
+					|| exchange_from_currency == null || exchange_from_currency == ""
+					|| exchange_to_currency == null || exchange_to_currency == ""
+					|| currency_base_value == null || currency_base_value == ""
+					|| currency_target_value == null || currency_target_value == ""){
+					code = -3;
+					messages = "参数输入不正确。";
+					logger.info(messages);
+					return SUCCESS;
+				}else{
+					//数据的删除处理
+					sqlMap.delete("DeletePushUsers", registrationID);
+				}
 				//对象的初期化
 				PushUserInfo userInfo = new  PushUserInfo();
 				userInfo.setRegistration_ID(registrationID);

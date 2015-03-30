@@ -168,4 +168,15 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			LIMIT 1
         ]]> 
     </select>
+    
+     <!-- 一条最新汇率数据的取得start -->
+    <delete id="DeletePushUsers"  parameterClass="java.lang.String">   
+         <![CDATA[ 
+           DELETE
+           FROM
+           		push_users
+		   WHERE
+			    registration_ID = #registrationID#
+        ]]> 
+    </delete>
 </sqlMap>
