@@ -28,6 +28,8 @@ public class UsdDayNewestList extends ActionSupport {
 		private String exchange_to_currency;
 		//最新一条汇率的信息
 		private List<UsdHourInfo> usdDayInfoList;
+		//最新数据的时间
+		private String latestTime;
 		
 		@SuppressWarnings("unchecked")
 		@Override
@@ -48,6 +50,13 @@ public class UsdDayNewestList extends ActionSupport {
 				if(usdDayInfoList == null || usdDayInfoList.size()==0 ){
 	     			code = -1;
 	        		messages = "没有找到对应的数据。";
+	     		}
+				//取到数据库中最新一条数据的最新时间
+				latestTime =(String) sqlMap.queryForObject("GetUsdDayTime");
+				if(latestTime == null || latestTime == "" ){
+	     			code = -1;
+	        		messages = "没有找到对应的数据。";
+	        		logger.info(messages);
 	     		}
 	        		
 			} catch (SQLException e) {
@@ -103,5 +112,14 @@ public class UsdDayNewestList extends ActionSupport {
 		public void setExchange_to_currency(String exchange_to_currency) {
 			this.exchange_to_currency = exchange_to_currency;
 		}
+
+		public String getLatestTime() {
+			return latestTime;
+		}
+
+		public void setLatestTime(String latestTime) {
+			this.latestTime = latestTime;
+		}
+		
 		
 }

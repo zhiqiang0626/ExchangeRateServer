@@ -145,4 +145,27 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
         ]]> 
     </select> 
     
+     <!-- 一条最新汇率数据的取得start -->
+    <select id="GetUsdHourTime"  resultClass="java.lang.String">   
+         <![CDATA[ 
+           SELECT
+           		UNIX_TIMESTAMP(T1.update_time) AS latestTime
+			FROM USD_HOUR T1 
+			ORDER BY
+			     T1.update_time DESC
+			LIMIT 1
+        ]]> 
+    </select> 
+    
+     <!-- 一条最新汇率数据的取得start -->
+    <select id="GetUsdDayTime"  resultClass="java.lang.String">   
+         <![CDATA[ 
+           SELECT
+           		UNIX_TIMESTAMP(T1.update_time) AS latestTime
+			FROM USD_DAY T1 
+			ORDER BY
+			     T1.update_time DESC
+			LIMIT 1
+        ]]> 
+    </select>
 </sqlMap>

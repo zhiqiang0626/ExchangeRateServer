@@ -15,7 +15,7 @@ package com.fx.exchange.wuxi.api.servlet;
      }
      public void init() throws ServletException {   
      
-         System.setProperty("logPath", "/alcoholicparty/log/apilog"); 
+         System.setProperty("logPath", "/rate/log/apilog"); 
          System.err.println("Log4j Servlet test Path: " + System.getProperty("logPath"));
         
          PropertyConfigurator.configure(getServletContext().getRealPath("/") + getInitParameter("configfile"));   
