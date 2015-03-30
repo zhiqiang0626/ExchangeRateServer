@@ -56,7 +56,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
      <!-- 活动情报登陆start -->
     <update id="PushUserInsert"  parameterClass="com.fx.exchange.wuxi.api.model.PushUserInfo">  
          <![CDATA[ 
-        INSERT INTO PUSH_USERS (
+        INSERT INTO push_users (
 			registration_ID,
 		 	push_flag,
 		 	push_device_type,
