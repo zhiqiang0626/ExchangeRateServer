@@ -9,5 +9,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/apcc4m-front/WebContent/WEB-INF/lib/org.json.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
