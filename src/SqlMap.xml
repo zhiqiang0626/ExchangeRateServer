@@ -179,4 +179,17 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			    registration_ID = #registrationID#
         ]]> 
     </delete>
+    
+     <!-- 用户的pushFlag信息 -->
+    <select id="GetUsdPushStatus"  parameterClass="java.lang.String" resultClass="java.lang.String">   
+         <![CDATA[ 
+           SELECT
+			    T1.push_status AS pushStatus
+		   FROM 
+		        push_users T1 
+		   WHERE
+		         T1.registration_ID = #registrationID#
+        ]]> 
+    </select> 
+    <!-- 用户的pushFlag信息end -->
 </sqlMap>
