@@ -12,9 +12,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.fx.exchange.wuxi.common.util.StringConst;
 
 
 /**
@@ -25,6 +27,9 @@ import org.json.JSONObject;
  */
 public class RequestHeaderFilter implements Filter {
 
+	//Logger的初期设定
+	private static Logger logger = Logger.getLogger("ScriptMaint");
+	
     @Override
     public void destroy() {
 
@@ -34,15 +39,19 @@ public class RequestHeaderFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
             throws IOException, ServletException {
 
+    	logger.debug("doFilter START: " );
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         request.setCharacterEncoding("UTF-8");
-        // init the request data
-        String AuthTokenRequest = request.getHeader("Fx-Ex-Auth-Token");
-        String AuthTokenServer = "11223344";
-        if (AuthTokenServer.equals(AuthTokenRequest)) {
+        //头部数据验证数据的取得
+        String authTokenRequest = request.getHeader(StringConst.FX_EX_AUTH_TOKEN);
+        //版本号额取得
+        String nowVersion = request.getHeader(StringConst.AUTH_VERSION);
+        logger.info("当前的请求app版本号："+nowVersion);
+        if ( StringConst.AUTH_TOKEN_SERVER.equals(authTokenRequest)) {
             chain.doFilter(request, response);
         } else {
+        	logger.info("非法请求！");
         	response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.setStatus(201);
@@ -59,6 +68,7 @@ public class RequestHeaderFilter implements Filter {
                // logger.error(e.getMessage());
             }
         }
+        logger.debug("doFilter END: " );
     }
 
     @Override
