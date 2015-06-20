@@ -95,19 +95,19 @@ public class RegisterUser extends ActionSupport {
 			//用户是否允许进行push 0：允许 1：不允许
 			userInfo.setPush_flag("0");
 			//需要转换的元货币 例:JPY
-			userInfo.setExchange_from_currency("");
+			userInfo.setExchange_from_currency("JPY");
 			//转换后的先货币 例如：USD
-			userInfo.setExchange_to_currency("");
+			userInfo.setExchange_to_currency("JPY");
 			//当前货币的基准值
-			userInfo.setCurrency_base_value("");
+			userInfo.setCurrency_base_value("0");
 			//目标货币值，一旦达到，将进行推送消息
-			userInfo.setCurrency_target_value("");
+			userInfo.setCurrency_target_value("0");
 			//目标货币值2
-			userInfo.setCurrency_target2_value("");
+			userInfo.setCurrency_target2_value("0");
 			//目标货币值3
-			userInfo.setCurrency_target3_value("");
+			userInfo.setCurrency_target3_value("0");
 			//目标货币值4
-			userInfo.setCurrency_target4_value("");
+			userInfo.setCurrency_target4_value("0");
 		}
 		
 		
