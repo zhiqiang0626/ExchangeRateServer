@@ -54,7 +54,7 @@ public class RequestHeaderFilter implements Filter {
         	logger.info("非法请求！");
         	response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
-            response.setStatus(201);
+            response.setStatus(501);
             try {
                 JSONObject tempJsonObj = new JSONObject();
                 tempJsonObj.put("code", -9);

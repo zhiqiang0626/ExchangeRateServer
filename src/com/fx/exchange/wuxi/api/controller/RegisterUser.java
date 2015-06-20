@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.PushUserInfo;
+import com.fx.exchange.wuxi.common.util.StringConst;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -57,9 +58,10 @@ public class RegisterUser extends ActionSupport {
 					|| exchange_to_currency == null || exchange_to_currency == ""
 					|| currency_base_value == null || currency_base_value == ""
 					|| currency_target_value == null || currency_target_value == ""){
+					//错误code
 					code = -3;
 					messages = "参数输入不正确。";
-					logger.info(messages);
+					logger.info(StringConst.ERROR_MSG_03);
 					return SUCCESS;
 				}else{
 					//数据的删除处理

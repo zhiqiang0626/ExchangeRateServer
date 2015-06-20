@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import com.fx.exchange.wuxi.api.db.DBOperation;
+import com.fx.exchange.wuxi.common.util.StringConst;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -36,23 +37,23 @@ public class GetUsdPushStatus extends ActionSupport {
 			pushStatus = (String)sqlMap.queryForObject("GetUsdPushStatus",registrationID);
 			if (pushStatus == null || "".equals(pushStatus)) {
 				code = -1;
-				messages = "数据未取到！";
+				messages = StringConst.ERROR_MSG_01;
 				logger.info(messages);
 			}
 			
 		}catch (SQLException e) {
 			code = -2;
-			messages = "数据库查询异常！";
 			logger.info(e.toString());
 		}catch (Exception e) {
 			//异常的处理
 			code = -3;
 			logger.info(e.toString());
 		}
-		
 		logger.debug("GetUsdPushStatus END: " );
+		
 		return SUCCESS;
 	}
+	
 	
 	public int getCode() {
 		return code;
