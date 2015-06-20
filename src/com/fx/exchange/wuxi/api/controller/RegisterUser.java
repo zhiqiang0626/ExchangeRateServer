@@ -52,13 +52,8 @@ public class RegisterUser extends ActionSupport {
 
 			try {
 				if (registrationID == null || registrationID == ""
-					|| push_flag == null || push_flag == "" 
 					|| push_device_type == null || push_device_type == ""
-					|| exchange_from_currency == null || exchange_from_currency == ""
-					|| exchange_to_currency == null || exchange_to_currency == ""
-					|| currency_base_value == null || currency_base_value == ""
-					|| currency_target_value == null || currency_target_value == ""){
-					//错误code
+					){
 					code = -3;
 					messages = "参数输入不正确。";
 					logger.info(StringConst.ERROR_MSG_03);
@@ -70,19 +65,14 @@ public class RegisterUser extends ActionSupport {
 				//对象的初期化
 				PushUserInfo userInfo = new  PushUserInfo();
 				userInfo.setRegistration_ID(registrationID);
-				userInfo.setPush_flag(push_flag);
 				userInfo.setPush_device_type(push_device_type);
-				userInfo.setExchange_from_currency(exchange_from_currency);
-				userInfo.setExchange_to_currency(exchange_to_currency);
-				userInfo.setCurrency_base_value(currency_base_value);
-				userInfo.setCurrency_target_value(currency_target_value);
-				userInfo.setCurrency_target2_value(currency_target2_value);
-				userInfo.setCurrency_target3_value(currency_target3_value);
-				userInfo.setCurrency_target4_value(currency_target4_value);
+				//初期化一些参数值
+				InitParam(userInfo);
 				//数据的插入处理
 				sqlMap.insert("PushUserInsert", userInfo);
 				messages = "插入数据成功！";
 				logger.info(messages);
+				
 				
 			}  catch (SQLException e) {
 				e.printStackTrace();
@@ -99,6 +89,29 @@ public class RegisterUser extends ActionSupport {
 			logger.debug("RegisterUser END: " );
 			return SUCCESS;
 		}
+		
+		//初始化参数
+		public void InitParam(PushUserInfo userInfo ){
+			//用户是否允许进行push 0：允许 1：不允许
+			userInfo.setPush_flag("0");
+			//需要转换的元货币 例:JPY
+			userInfo.setExchange_from_currency("");
+			//转换后的先货币 例如：USD
+			userInfo.setExchange_to_currency("");
+			//当前货币的基准值
+			userInfo.setCurrency_base_value("");
+			//目标货币值，一旦达到，将进行推送消息
+			userInfo.setCurrency_target_value("");
+			//目标货币值2
+			userInfo.setCurrency_target2_value("");
+			//目标货币值3
+			userInfo.setCurrency_target3_value("");
+			//目标货币值4
+			userInfo.setCurrency_target4_value("");
+		}
+		
+		
+		//参数的构造
 		public int getCode() {
 			return code;
 		}
