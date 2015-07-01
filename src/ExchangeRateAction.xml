@@ -88,6 +88,18 @@
 				</param>
 			</result>
 		</action>
+		
+		<!--提交用户的反馈信息更新到服务器上。  -->
+		
+		<action name="FeedBack"
+			class="com.fx.exchange.wuxi.api.controller.FeedBackAction">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">
+				registrationID,messages,feedback_title,feedback_content
+				</param>
+			</result>
+		</action>
 
 	</package>
 

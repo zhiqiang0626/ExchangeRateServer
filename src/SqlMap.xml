@@ -192,4 +192,23 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
         ]]> 
     </select> 
     <!-- 用户的pushFlag信息end -->
+    
+     <!-- 活动情报登陆start -->
+    <update id="FeedBackInsert"  parameterClass="com.fx.exchange.wuxi.api.model.FeedBackInfo">  
+         <![CDATA[ 
+        INSERT INTO feedback_info (
+			registration_ID,
+		 	feedback_title,
+		 	feedback_content,
+		 	create_time,
+		 	update_time)
+		 VALUES(
+		 	#registration_ID#,
+		 	#feedback_title#,
+		 	#feedback_content#,
+		 	now(),
+		 	now())
+        ]]> 
+    </update>
+    <!-- 活动情报登陆end-->
 </sqlMap>
