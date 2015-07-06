@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.UsdHourInfo;
+import com.fx.exchange.wuxi.common.util.StringConst;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -49,20 +50,17 @@ public class UsdHourNewestList extends ActionSupport {
 
 				if(usdHourInfoList == null || usdHourInfoList.size()==0 ){
 	     			code = -1;
-	        		messages = "没有找到对应的数据。";
-	        		logger.info(messages);
+	     			logger.info(StringConst.ERROR_MSG_01);
 	     		}
 				//取到数据库中最新一条数据的最新时间
 				latestTime =(String) sqlMap.queryForObject("GetUsdHourTime");
 				if(latestTime == null || latestTime == "" ){
 	     			code = -1;
-	        		messages = "没有找到对应的数据。";
-	        		logger.info(messages);
+	     			logger.info(StringConst.ERROR_MSG_01);
 	     		}
 	        		
 			} catch (SQLException e) {
 				code = -2;
-				messages = "数据库查询异常！";
 				logger.info(e.toString());
 			}catch (Exception e) {
 				//异常的处理

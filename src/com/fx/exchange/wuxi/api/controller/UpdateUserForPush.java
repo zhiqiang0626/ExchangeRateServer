@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.PushUserInfo;
+import com.fx.exchange.wuxi.common.util.StringConst;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -39,17 +40,15 @@ public class UpdateUserForPush extends ActionSupport {
 				userInfo.setRegistration_ID(registrationID);
 				//数据的插入处理
 				sqlMap.update("PushUserUpdateForPush", userInfo);
-				messages = "更新用户数据成功！";
+				logger.info(StringConst.ERROR_MSG_04);
 				
 			}  catch (SQLException e) {
 				e.printStackTrace();
 				code = -1;
-				messages = "db服务器异常";
 				logger.info(e.toString() );
 			} catch (Exception e) {
 				e.printStackTrace();
 				code = -1;
-				messages = "服务器异常";
 				logger.info(e.toString() );
 			}
 			

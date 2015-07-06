@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.FeedBackInfo;
 import com.fx.exchange.wuxi.api.model.PushUserInfo;
+import com.fx.exchange.wuxi.common.util.RequestMethodUtil;
 import com.fx.exchange.wuxi.common.util.StringConst;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.opensymphony.xwork2.ActionSupport;
@@ -20,8 +21,7 @@ public class FeedBackAction extends ActionSupport {
 
 		//返回json结果状态值 0：正常  -1：异常
 		private int code = 0;
-		//返回的message
-		private String messages;
+
 		//用户ID
 		private String registrationID;
 		//反馈信息的内容
@@ -33,16 +33,23 @@ public class FeedBackAction extends ActionSupport {
 		public String execute() throws Exception {
 			// TODO Auto-generated method stub
 			logger.debug("FeedBackAction START: " );
+			
+			//请求类型的判定处理
+			if(!RequestMethodUtil.isPostRequest()){
+				code = -2;
+				logger.info(StringConst.ERROR_MSG_07);
+				return SUCCESS;
+			}
+			
 			//数据库的初期化
 			SqlMapClient sqlMap = DBOperation.getSqlMapInstance();
 
 			try {
-				if (registrationID == null || registrationID == ""
-					|| feedback_content == null || feedback_content == ""
+				if (registrationID == null ||  "".equals(registrationID)
+					|| feedback_content == null ||  "".equals(feedback_content)
 					){
 					code = -3;
-					messages = "参数输入不正确。";
-					logger.info(StringConst.ERROR_MSG_03);
+					logger.info(StringConst.ERROR_MSG_05);
 					return SUCCESS;
 				}else{
 					//对象的初期化
@@ -50,20 +57,17 @@ public class FeedBackAction extends ActionSupport {
 					
 					//数据的插入处理
 					sqlMap.insert("FeedBackInsert", feedBackInfo);
-					messages = "插入数据成功！";
-					logger.info(messages);
+					logger.info(StringConst.ERROR_MSG_03);
 					
 				}
 				
 			}  catch (SQLException e) {
 				e.printStackTrace();
 				code = -1;
-				messages = "插入数据库异常。";
 				logger.info(e.toString() );
 			} catch (Exception e) {
 				e.printStackTrace();
 				code = -2;
-				messages = "系统异常。";
 				logger.info(e.toString() );
 			}
 			
@@ -90,12 +94,7 @@ public class FeedBackAction extends ActionSupport {
 		public void setCode(int code) {
 			this.code = code;
 		}
-		public String getMessages() {
-			return messages;
-		}
-		public void setMessages(String messages) {
-			this.messages = messages;
-		}
+
 		public String getRegistrationID() {
 			return registrationID;
 		}

@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.PushUserInfo;
+import com.fx.exchange.wuxi.common.util.RequestMethodUtil;
+import com.fx.exchange.wuxi.common.util.StringConst;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -42,6 +44,14 @@ public class UpdateUser extends ActionSupport {
 		public String execute() throws Exception {
 			// TODO Auto-generated method stub
 			logger.debug("RegisterUser START: " );
+			
+			//请求类型的判定处理
+			if(!RequestMethodUtil.isPostRequest()){
+				code = -2;
+				logger.info(StringConst.ERROR_MSG_07);
+				return SUCCESS;
+			}
+			
 			//数据库的初期化
 			SqlMapClient sqlMap = DBOperation.getSqlMapInstance();
 
@@ -60,22 +70,23 @@ public class UpdateUser extends ActionSupport {
 				userInfo.setCurrency_target4_value(currency_target4_value);
 				//数据的更新处理
 				sqlMap.update("PushUserUpdate", userInfo);
+				logger.info(StringConst.ERROR_MSG_04);
 				
 			}  catch (SQLException e) {
 				e.printStackTrace();
 				code = -1;
-				messages = "更新数据库异常。";
 				logger.info(e.toString() );
 			} catch (Exception e) {
 				e.printStackTrace();
 				code = -2;
-				messages = "系统异常。";
 				logger.info(e.toString() );
 			}
 			
 			logger.debug("RegisterUser END: " );
+			
 			return SUCCESS;
 		}
+		
 		public int getCode() {
 			return code;
 		}

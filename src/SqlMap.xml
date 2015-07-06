@@ -67,7 +67,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		 	currency_target_value,
 		 	currency_target2_value,
 		 	currency_target3_value,
-		 	currency_target4_value, 	
+		 	currency_target4_value,
+		 	user_language_code,
 		 	update_time)
 		 VALUES(
 		 	#registration_ID#,
@@ -80,6 +81,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		 	#currency_target2_value#,
 		 	#currency_target3_value#,
 		 	#currency_target4_value#,
+		 	#user_language_code#,
 		 	now())
         ]]> 
     </update>
@@ -180,6 +182,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			    registration_ID = #registrationID#
         ]]> 
     </delete>
+    
+      <!-- 用户的pushFlag信息 -->
+    <select id="GetUsdPushInfoCount"  parameterClass="java.lang.String" resultClass="java.lang.Integer">   
+         <![CDATA[ 
+           SELECT
+			    count(T1.push_status) AS count
+		   FROM 
+		        push_users T1 
+		   WHERE
+		         T1.registration_ID = #registrationID#
+        ]]> 
+    </select> 
+    <!-- 用户的pushFlag信息end -->
     
      <!-- 用户的pushFlag信息 -->
     <select id="GetUsdPushStatus"  parameterClass="java.lang.String" resultClass="java.lang.String">   

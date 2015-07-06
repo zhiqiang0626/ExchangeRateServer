@@ -3,9 +3,12 @@ package com.fx.exchange.wuxi.api.controller;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.PushUserInfo;
+import com.fx.exchange.wuxi.api.model.UsdHourInfo;
+import com.fx.exchange.wuxi.common.util.RequestMethodUtil;
 import com.fx.exchange.wuxi.common.util.StringConst;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.opensymphony.xwork2.ActionSupport;
@@ -43,46 +46,59 @@ public class RegisterUser extends ActionSupport {
 		private String currency_target3_value;
 		//目标货币值4
 		private String currency_target4_value;
+		//手机端末的使用语言
+		private String user_language_code;
 		@Override
 		public String execute() throws Exception {
 			// TODO Auto-generated method stub
 			logger.debug("RegisterUser START: " );
+			
+			//请求类型的判定处理
+			if(!RequestMethodUtil.isPostRequest()){
+				code = -2;
+				logger.info(StringConst.ERROR_MSG_07);
+				return SUCCESS;
+			}
+			
 			//数据库的初期化
 			SqlMapClient sqlMap = DBOperation.getSqlMapInstance();
-
+			
 			try {
-				if (registrationID == null || registrationID == ""
-					|| push_device_type == null || push_device_type == ""
+				if (registrationID == null ||  "".equals(registrationID)
+					|| push_device_type == null ||  "".equals(push_device_type)
+					||user_language_code == null || "".equals(user_language_code)
 					){
 					code = -3;
-					messages = "参数输入不正确。";
-					logger.info(StringConst.ERROR_MSG_03);
+					logger.info(StringConst.ERROR_MSG_05);
 					return SUCCESS;
-				}else{
-					//数据的删除处理
-					sqlMap.delete("DeletePushUsers", registrationID);
 				}
+				
+				//用户是否已经注册过
+				int userCount = (int)sqlMap.queryForObject("GetUsdPushInfoCount",registrationID);
+				System.out.println(userCount);
+				if(userCount > 0){
+					logger.info(StringConst.ERROR_MSG_06);
+					return SUCCESS;
+				}
+
 				//对象的初期化
 				PushUserInfo userInfo = new  PushUserInfo();
 				userInfo.setRegistration_ID(registrationID);
 				userInfo.setPush_device_type(push_device_type);
+				userInfo.setUser_language_code(user_language_code);
 				//初期化一些参数值
 				InitParam(userInfo);
 				//数据的插入处理
 				sqlMap.insert("PushUserInsert", userInfo);
-				messages = "插入数据成功！";
-				logger.info(messages);
-				
+				logger.info(StringConst.ERROR_MSG_03);
 				
 			}  catch (SQLException e) {
 				e.printStackTrace();
 				code = -1;
-				messages = "插入数据库异常。";
 				logger.info(e.toString() );
 			} catch (Exception e) {
 				e.printStackTrace();
 				code = -2;
-				messages = "系统异常。";
 				logger.info(e.toString() );
 			}
 			
@@ -190,5 +206,14 @@ public class RegisterUser extends ActionSupport {
 		public void setCurrency_target4_value(String currency_target4_value) {
 			this.currency_target4_value = currency_target4_value;
 		}
+
+		public String getUser_language_code() {
+			return user_language_code;
+		}
+
+		public void setUser_language_code(String user_language_code) {
+			this.user_language_code = user_language_code;
+		}
+		
 		
 }

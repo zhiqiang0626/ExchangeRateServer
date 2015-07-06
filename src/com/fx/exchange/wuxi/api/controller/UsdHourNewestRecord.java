@@ -10,6 +10,7 @@ import cn.jpush.api.common.TimeUnit;
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.UsdHourInfo;
 import com.fx.exchange.wuxi.api.model.UsdRateCache;
+import com.fx.exchange.wuxi.common.util.StringConst;
 import com.fx.exchange.wuxi.common.util.TimeUtil;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.opensymphony.xwork2.ActionSupport;
@@ -32,9 +33,10 @@ public class UsdHourNewestRecord extends ActionSupport {
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		logger.debug("UsdHourNewestRecord START: " );
-		//
+		//本地是否满足最新一小时数据的判断
 		if(UsdRateCache.usdHourInfo != null && !TimeUtil.checkIsLasterHourTime(UsdRateCache.usdTime)){
 			usdHourInfo = UsdRateCache.usdHourInfo;
+			logger.info(StringConst.ERROR_MSG_08);
 			return SUCCESS;
 		}
 		//数据库的初期化
@@ -45,16 +47,16 @@ public class UsdHourNewestRecord extends ActionSupport {
 			usdHourInfo = (UsdHourInfo)sqlMap.queryForObject("GetUsdHourObject");
 			if (usdHourInfo == null) {
 				code = -1;
-				messages = "数据未取到！";
-				logger.info(messages);
+				logger.info(StringConst.ERROR_MSG_01);
 			}else{
+				//cache中进行设值
 				UsdRateCache.usdHourInfo = usdHourInfo;
 				UsdRateCache.usdTime = Long.parseLong(usdHourInfo.getUpdateTime());
+				logger.info("最新记录服务器时间："+UsdRateCache.usdTime);
 			}
 			
 		}catch (SQLException e) {
 			code = -2;
-			messages = "数据库查询异常！";
 			logger.info(e.toString());
 		}catch (Exception e) {
 			//异常的处理

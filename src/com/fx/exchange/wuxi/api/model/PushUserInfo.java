@@ -17,6 +17,7 @@ public class PushUserInfo {
 	private String currency_target3_value;
 	private String currency_target4_value;
 	private String del_flag;
+	private String user_language_code;
 	public String getRegistration_ID() {
 		return registration_ID;
 	}
@@ -103,6 +104,13 @@ public class PushUserInfo {
 	public void setCurrency_target4_value(String currency_target4_value) {
 		this.currency_target4_value = currency_target4_value;
 	}
+	public String getUser_language_code() {
+		return user_language_code;
+	}
+	public void setUser_language_code(String user_language_code) {
+		this.user_language_code = user_language_code;
+	}
+	
 	
 	
 }
