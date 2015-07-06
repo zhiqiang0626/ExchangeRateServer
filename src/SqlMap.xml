@@ -44,7 +44,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			    T1.JOD AS JOD,
 			    T1.ECS AS ECS,
 			    T1.PEN AS PEN,
-			    T1.LBP AS LBP
+			    T1.LBP AS LBP,
+			    UNIX_TIMESTAMP(T1.update_time) AS updateTime
 			FROM USD_HOUR T1 
 			ORDER BY
 			     T1.update_time DESC

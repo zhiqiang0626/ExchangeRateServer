@@ -1,11 +1,16 @@
 package com.fx.exchange.wuxi.api.controller;
 
 import java.sql.SQLException;
+import java.sql.Time;
 
 import org.apache.log4j.Logger;
 
+import cn.jpush.api.common.TimeUnit;
+
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.UsdHourInfo;
+import com.fx.exchange.wuxi.api.model.UsdRateCache;
+import com.fx.exchange.wuxi.common.util.TimeUtil;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -27,6 +32,11 @@ public class UsdHourNewestRecord extends ActionSupport {
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		logger.debug("UsdHourNewestRecord START: " );
+		//
+		if(UsdRateCache.usdHourInfo != null && !TimeUtil.checkIsLasterHourTime(UsdRateCache.usdTime)){
+			usdHourInfo = UsdRateCache.usdHourInfo;
+			return SUCCESS;
+		}
 		//数据库的初期化
 		SqlMapClient sqlMap = DBOperation.getSqlMapInstance();
 
@@ -37,6 +47,9 @@ public class UsdHourNewestRecord extends ActionSupport {
 				code = -1;
 				messages = "数据未取到！";
 				logger.info(messages);
+			}else{
+				UsdRateCache.usdHourInfo = usdHourInfo;
+				UsdRateCache.usdTime = Long.parseLong(usdHourInfo.getUpdateTime());
 			}
 			
 		}catch (SQLException e) {
