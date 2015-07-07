@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.FeedBackInfo;
-import com.fx.exchange.wuxi.api.model.PushUserInfo;
 import com.fx.exchange.wuxi.common.util.RequestMethodUtil;
 import com.fx.exchange.wuxi.common.util.StringConst;
 import com.ibatis.sqlmap.client.SqlMapClient;

@@ -3,11 +3,9 @@ package com.fx.exchange.wuxi.api.controller;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.PushUserInfo;
-import com.fx.exchange.wuxi.api.model.UsdHourInfo;
 import com.fx.exchange.wuxi.common.util.RequestMethodUtil;
 import com.fx.exchange.wuxi.common.util.StringConst;
 import com.ibatis.sqlmap.client.SqlMapClient;

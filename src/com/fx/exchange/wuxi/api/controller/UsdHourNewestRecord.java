@@ -1,12 +1,7 @@
 package com.fx.exchange.wuxi.api.controller;
 
 import java.sql.SQLException;
-import java.sql.Time;
-
 import org.apache.log4j.Logger;
-
-import cn.jpush.api.common.TimeUnit;
-
 import com.fx.exchange.wuxi.api.db.DBOperation;
 import com.fx.exchange.wuxi.api.model.UsdHourInfo;
 import com.fx.exchange.wuxi.api.model.UsdRateCache;
