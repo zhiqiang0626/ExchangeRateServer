@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file. Any modifications will be overwritten. 
+	To include a user specific buildfile here, simply create one in the same 
+	directory with the processing instruction <?eclipse.ant.import?> as the first 
+	entry and export the buildfile again. -->
+<project basedir="." default="dist" name="ExchangeRateServer">
+	<property environment="env" />
+	<property name="apcc4m-front.location" value="../apcc4m-front" />
+	<property name="ECLIPSE_HOME" value="F:/ecli/eclipse" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.7" />
+	<property name="source" value="1.7" />
+	<property name="src.dir" value="./src" />
+	<property name="classes.dir" value="./build/classes" />
+	<property name="war.output.dir" value="./output-war" />
+	<property name="war.home" value="./WebContent" />
+	<property name="web-app.name" value="ExchangeRateServer" />
+	
+		<!-- ライブラリ -->
+	<path id="libs">
+		<fileset dir="./WebContent/WEB-INF/lib">
+			<include name="*" />
+		</fileset>
+	</path>
+	
+	<!-- 初期化 -->
+	<target name="init">
+		<delete dir="${classes.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<delete dir="${war.output.dir}" />
+		<mkdir dir="${war.output.dir}" />
+	</target>
+	
+		<!-- コンパイル -->
+	<target name="javac">
+		<javac includeAntRuntime="true" srcdir="${src.dir}" destdir="${classes.dir}" encoding="UTF-8" compiler="javac1.7" debug="on" optimize="off" fork="true">
+			<classpath refid="libs" />
+		</javac>
+	</target>
+	
+	<!-- warタスクによってwarファイルを作成 -->
+	<target name="war">
+		<copy includeemptydirs="false" todir="build/classes">
+			<fileset dir="${src.dir}">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<war destfile="./${war.output.dir}/${web-app.name}.war" webxml="${war.home}/WEB-INF/web.xml">
+			<fileset dir="${war.home}" excludes="**/web.xml" />
+			<classes dir="${classes.dir}" />
+		</war>
+	</target>
+
+	
+	<!-- デモ環境用の設定ファイルをコピー -->
+	<target name="CopyDemoFile">
+		<copy todir="${classes.dir}" overwrite="true">
+			<fileset dir="${demo.prop.dir}">
+				<include name="*.properties"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<!-- デモ環境用のWARファイルを作成 -->
+    <target name="DemoWar">
+        <antcall target="init"/>
+        <antcall target="javac"/>
+        <!--<antcall target="CopyDemoFile"/> -->
+        <antcall target="war"/> 
+    </target>
+    
+    <!-- First task -->
+	<target name="dist" depends="DemoWar">
+	</target>
+	
+</project>
