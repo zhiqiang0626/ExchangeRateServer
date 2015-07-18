@@ -36,9 +36,9 @@ public class RegisterUser extends ActionSupport {
 		private String exchange_to_currency;
 		//当前货币的基准值
 		private String currency_base_value;
-		//目标货币值，一旦达到，将进行推送消息
+		//目标货币值，一旦达到，将进行推送消息下限值
 		private String currency_target_value;
-		//目标货币值2
+		//目标货币值2上限值
 		private String currency_target2_value;
 		//目标货币值3
 		private String currency_target3_value;
@@ -83,7 +83,6 @@ public class RegisterUser extends ActionSupport {
 				PushUserInfo userInfo = new  PushUserInfo();
 				userInfo.setRegistration_ID(registrationID);
 				userInfo.setPush_device_type(push_device_type);
-				userInfo.setUser_language_code(user_language_code);
 				//初期化一些参数值
 				InitParam(userInfo);
 				//数据的插入处理
@@ -104,25 +103,31 @@ public class RegisterUser extends ActionSupport {
 			return SUCCESS;
 		}
 		
-		//初始化参数
-		public void InitParam(PushUserInfo userInfo ){
-			//用户是否允许进行push 0：允许 1：不允许
-			userInfo.setPush_flag("0");
-			//需要转换的元货币 例:JPY
-			userInfo.setExchange_from_currency("JPY");
-			//转换后的先货币 例如：USD
-			userInfo.setExchange_to_currency("JPY");
-			//当前货币的基准值
-			userInfo.setCurrency_base_value("0");
-			//目标货币值，一旦达到，将进行推送消息
-			userInfo.setCurrency_target_value("0");
-			//目标货币值2
-			userInfo.setCurrency_target2_value("0");
-			//目标货币值3
-			userInfo.setCurrency_target3_value("0");
-			//目标货币值4
-			userInfo.setCurrency_target4_value("0");
+	// 初始化参数
+	public void InitParam(PushUserInfo userInfo) {
+		// 用户是否允许进行push 0：允许 1：不允许
+		userInfo.setPush_flag("0");
+		// 需要转换的元货币 例:JPY
+		userInfo.setExchange_from_currency("JPY");
+		// 转换后的先货币 例如：USD
+		userInfo.setExchange_to_currency("JPY");
+		// 当前货币的基准值
+		userInfo.setCurrency_base_value("0");
+		// 目标货币值，一旦达到，将进行推送消息
+		userInfo.setCurrency_target_value("99999");
+		// 目标货币值2
+		userInfo.setCurrency_target2_value("99999");
+		// 目标货币值3
+		//userInfo.setCurrency_target3_value("0");
+		// 目标货币值4
+		//userInfo.setCurrency_target4_value("0");
+		//
+		if (user_language_code == null || "".equals(user_language_code)) {
+			userInfo.setUser_language_code("99");
+		}else{
+			userInfo.setUser_language_code(user_language_code);
 		}
+	}
 		
 		
 		//参数的构造
