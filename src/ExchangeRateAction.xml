@@ -24,9 +24,7 @@
 			<result type="json">
 				<param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">
-				registrationID,push_flag,push_device_type,exchange_from_currency,exchange_to_currency,
-				currency_base_value,currency_target_value,currency_target2_value,currency_target3_value,
-				currency_target4_value,messages,user_language_code
+				registrationID,push_flag,push_device_type,user_language_code
 				</param>
 			</result>
 		</action>

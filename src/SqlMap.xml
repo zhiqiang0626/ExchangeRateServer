@@ -103,6 +103,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			    currency_target3_value = #currency_target3_value#,
 			    currency_target4_value = #currency_target4_value#,
 			    update_time = now()
+	      ]]> 
+	    <dynamic prepend="">  
+	        <isNotNull prepend="," property="user_language_code">
+		        user_language_code = #user_language_code#
+	           </isNotNull>
+	    </dynamic>
+		<![CDATA[ 
 			WHERE
 			    registration_ID = #registration_ID#
         ]]> 
